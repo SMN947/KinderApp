@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { useEffect } from 'react';
 
@@ -8,6 +9,7 @@ export default function Splash() {
 
     return (
         <View style={styles.container}>
+            <StatusBar style="auto" />
             <View style={styles.logoContainer}>
                 <Image source={require('../assets/logo.png')} style={styles.logo} />
                 <Text style={styles.appName}>KinderApp</Text>

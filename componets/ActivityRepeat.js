@@ -69,9 +69,9 @@ export default function ActivityRepeat() {
 
     return (
         <View style={styles.container}>
+            <StatusBar style="auto" />
             <View style={[styles.progressBar, { width: `${progressBarWidth}%` }]} />
             <Text style={styles.textToSpeech}>{textGenerated}</Text>
-            <StatusBar style="auto" />
         </View>
     );
 }
