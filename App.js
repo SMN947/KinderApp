@@ -1,20 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useEffect } from 'react';
+import Splash from './componets/Splash';
+import LandingGeneral from './componets/LandingGeneral';
+import ActivityRepeat from './componets/ActivityRepeat';
+import { useState } from 'react';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const pagesMatrix = {
+    0: <Splash />,
+    1: <LandingGeneral />,
+    2: <ActivityRepeat />,
+  }
+  const [activePage, setActivePage] = useState(pagesMatrix[0]);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  useEffect(() => {
+    setTimeout(() => {
+      setActivePage(pagesMatrix[1]);
+    }, 3000);
+  }, []);
+
+  return activePage;
+}
