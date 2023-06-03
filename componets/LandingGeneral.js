@@ -1,29 +1,64 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import theme from '../theme';
 
-export default function LandingGeneral() {
+import ActivityRepeat from './ActivityRepeat';
+
+export default function LandingGeneral(props) {
+    console.log(props)
+    const activityComponents = {
+        ActivityRepeat: <ActivityRepeat />
+    };
     const activities = [
-        { title: 'Activity 1', description: 'Description of Activity 1' },
-        { title: 'Activity 2', description: 'Description of Activity 2' },
-        { title: 'Activity 3', description: 'Description of Activity 3' },
+        {
+            subject: "Español",
+            category: "Lectura",
+            level: "Basico",
+            title: "Lectura de silabas",
+            description: "Lee en voz alta la silaba",
+            soon: false,
+            component: "ActivityRepeat"
+        }, {
+            subject: "Español",
+            category: "Escucha",
+            level: "Basico",
+            title: "Escucha de silabas",
+            description: "Escucha y selecciona la opcion correcta",
+            soon: true
+        },
     ];
 
-    const renderActivityCard = (activity) => {
+    const renderActivityCard = (activity, loadActivity) => {
         return (
-            <TouchableOpacity style={styles.activityCard} key={activity.title}>
+            <TouchableOpacity
+                style={styles.activityCard}
+                key={activity.title}
+                onPress={() => {
+                    if (activity.soon) {
+                        Alert.alert("KinderApp", "Muy pronto!")
+                    } else {
+                        loadActivity(activityComponents[activity.component]);
+                    }
+                }}>
                 <Text style={styles.activityTitle}>{activity.title}</Text>
+                <Text style={styles.activityDescription}>{activity.subject}</Text>
+                <Text style={styles.activityDescription}>{activity.level}</Text>
                 <Text style={styles.activityDescription}>{activity.description}</Text>
             </TouchableOpacity>
+
+
         );
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.appTitle}>KinderApp</Text>
-            <View style={styles.activityContainer}>
-                {activities.map((activity) => renderActivityCard(activity))}
+        <ScrollView>
+            <View style={styles.container}>
+                <Text style={styles.appTitle}>KinderApp</Text>
+                <View style={styles.activityContainer}>
+                    {activities.map((activity) => renderActivityCard(activity, props.loadActivity))}
+                </View>
             </View>
-        </View>
+        </ScrollView>
     );
 };
 
@@ -45,11 +80,13 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
     },
     activityCard: {
-        width: '48%',
+        width: '100%',
         backgroundColor: '#F3F3F3',
         borderRadius: 10,
         padding: 10,
         marginBottom: 15,
+        borderColor: theme.colors.black,
+        borderWidth: 1
     },
     activityTitle: {
         fontSize: 16,

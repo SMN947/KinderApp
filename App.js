@@ -8,16 +8,18 @@ import { useState } from 'react';
 export default function App() {
   const pagesMatrix = {
     0: <Splash />,
-    1: <LandingGeneral />,
-    2: <ActivityRepeat />,
+    1: <LandingGeneral loadActivity={(selectedActivity) => {
+      setActivePage(selectedActivity)
+    }} />,
     999: <ThemeDemo />,
   }
+
   const [activePage, setActivePage] = useState(pagesMatrix[0]);
 
   useEffect(() => {
     setTimeout(() => {
       setActivePage(pagesMatrix[1]);
-    }, 3000);
+    }, 300);
   }, []);
 
   return activePage;
