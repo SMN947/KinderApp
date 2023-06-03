@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import * as Speech from 'expo-speech';
 import { useState, useEffect, useRef } from 'react';
+import LandingGeneral from './LandingGeneral';
 
-export default function ActivityRepeat() {
+export default function ActivityRepeat(props) {
     console.clear();
     let completeWordWasSpeeched = useRef(false); // Use useRef instead of a regular variable
     const cons = ['d', 's', 'd', 't', 'n', 'l', 'd'];
@@ -72,6 +73,7 @@ export default function ActivityRepeat() {
             <StatusBar style="auto" />
             <View style={[styles.progressBar, { width: `${progressBarWidth}%` }]} />
             <Text style={styles.textToSpeech}>{textGenerated}</Text>
+            <Button title="Salir" onPress={() => props.loadActivity(<LandingGeneral />)} ></Button>
         </View>
     );
 }

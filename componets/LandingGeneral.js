@@ -7,7 +7,9 @@ import ActivityRepeat from './ActivityRepeat';
 export default function LandingGeneral(props) {
     console.log(props)
     const activityComponents = {
-        ActivityRepeat: <ActivityRepeat />
+        ActivityRepeat: <ActivityRepeat loadActivity={(selectedActivity) => {
+            props.loadActivity(selectedActivity)
+        }} />
     };
     const activities = [
         {
