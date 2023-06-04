@@ -2,15 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import theme from '../theme';
 
-import ActivityRepeat from './ActivityRepeat';
-
-export default function LandingGeneral(props) {
-    console.log(props)
-    const activityComponents = {
-        ActivityRepeat: <ActivityRepeat loadActivity={(selectedActivity) => {
-            props.loadActivity(selectedActivity)
-        }} />
-    };
+export default function LandingGeneral({ navigation, route }) {
     const activities = [
         {
             subject: "Español",
@@ -30,7 +22,7 @@ export default function LandingGeneral(props) {
         },
     ];
 
-    const renderActivityCard = (activity, loadActivity) => {
+    const renderActivityCard = (activity) => {
         return (
             <TouchableOpacity
                 style={styles.activityCard}
@@ -39,7 +31,7 @@ export default function LandingGeneral(props) {
                     if (activity.soon) {
                         Alert.alert("KinderApp", "Muy pronto!")
                     } else {
-                        loadActivity(activityComponents[activity.component]);
+                        navigation.navigate(activity.component)
                     }
                 }}>
                 <Text style={styles.activityTitle}>{activity.title}</Text>
@@ -57,7 +49,7 @@ export default function LandingGeneral(props) {
             <View style={styles.container}>
                 <Text style={styles.appTitle}>KinderApp</Text>
                 <View style={styles.activityContainer}>
-                    {activities.map((activity) => renderActivityCard(activity, props.loadActivity))}
+                    {activities.map((activity) => renderActivityCard(activity))}
                 </View>
             </View>
         </ScrollView>

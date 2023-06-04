@@ -2,9 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { useEffect } from 'react';
 
-export default function Splash() {
+export default function Splash({ navigation, route }) {
 
     useEffect(() => {
+        setTimeout(() => {
+            navigation.navigate('LandingGeneral');
+        }, 5000);
     }, []);
 
     return (
